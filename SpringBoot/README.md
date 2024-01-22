@@ -1,6 +1,6 @@
-Current Versions
-Evolution of Spring
-Spring Framework Architecture
+Current Versions  
+Evolution of Spring  
+Spring Framework Architecture  
 
 
 1. 	Why will you choose **Spring Boot** over Spring Framework?
