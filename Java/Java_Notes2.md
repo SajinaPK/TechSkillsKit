@@ -274,5 +274,51 @@ The rest of the constructor code is executed.
         .collect(Collectors.joining(" "));
       }
       ```
+13. What is the difference between static (class) method and instance method?
 
+| **Static Methods**                              | **Instance Methods**                                           |
+|-------------------------------------------------|----------------------------------------------------------------|
+| Can be called without the object of the class.  | Require an object of the class.                                |
+| Associated with the class.                      | Associated with the objects.                                   |
+| Can only access static attributes of the class. | Can access all the attributes of the class.                    |
+| Declared with the static keyword.               | Do not require any keywords.                                   |
+| Exists as a single copy for a class.            | Exist as multiple copies depending on the number of instances. |
 
+For example: public static int cube(int n){ return n*n*n;}	For example: public void msg(){...}.
+
+14. How is the difference between **thread and process**?
+   
+    A process runs in its own address space. No two processes share their address space. Threads will run in the same address space of the process that owns them. Two process runs on different memory space, but all threads share same memory space.
+    
+    Don't confuse this with stack memory, which is different for the different thread and used to store local data to that thread.
+     
+    Both processes and threads are independent sequences of execution. The typical difference is that threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
+
+15. Why Java is **not fully objective oriented** ?
+   
+    Due to the use of primitives in java, which are not objects.
+
+16. What is a **marker interface** ?
+   
+    An interface that contains no methods. Eg: Serializable, Cloneable, SingleThreadModel etc. It is used to just mark java classes that support certain capability. An empty interface used to add metadata similar to annotation.
+
+17. What are tag interfaces?
+   
+    Tag interface is an alternate name for marker interface.
+    
+18. What is **blank final variable**?
+    
+    A final variable, not initalized at the time of declaration, is known as blank final variable.
+
+19. Can we intialize blank final variable?
+   
+    Yes, only in constructor if it is non-static. If it is static blank final variable, it can be initialized only in the static block
+
+20. Why can't **this() and super() both be used together in a constructor**?
+   
+    Constructor must always be the first statement.
+    
+   So we can not have two statements as first statement, hence either we can call `super()` or we can call `this()` from the constructor, but not both.
+   `this(...)` will call another constructor in the same class whereas `super()` will call a super constructor. If there is no `super()` in a constructor the compiler will add one implicitly. 
+   
+   Thus if both were allowed you could end up calling the super constructor twice.
