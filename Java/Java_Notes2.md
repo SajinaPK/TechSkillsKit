@@ -283,8 +283,7 @@ The rest of the constructor code is executed.
 | Can only access static attributes of the class. | Can access all the attributes of the class.                    |
 | Declared with the static keyword.               | Do not require any keywords.                                   |
 | Exists as a single copy for a class.            | Exist as multiple copies depending on the number of instances. |
-
-For example: public static int cube(int n){ return n*n*n;}	For example: public void msg(){...}.
+| public static int cube(int n){ return n*n*n;}   | public void msg(){...}.                                        |
 
 14. How is the difference between **thread and process**?
    
@@ -300,21 +299,36 @@ For example: public static int cube(int n){ return n*n*n;}	For example: public v
 
 16. What is a **marker interface** ?
    
-    An interface that contains no methods. Eg: Serializable, Cloneable, SingleThreadModel etc. It is used to just mark java classes that support certain capability. An empty interface used to add metadata similar to annotation.
+    An interface that contains no methods. Eg: `Serializable`, `Cloneable`, `SingleThreadModel`, `RandomAccess`, `Remote` (RMI) etc. It is used to just mark java classes that support certain capability. An empty interface used to add metadata similar to annotation.
 
 17. What are tag interfaces?
    
     Tag interface is an alternate name for marker interface.
+
+18. How to create a custom marker interface in Java?
+
+    To create a custom marker interface, define an interface with no methods:
+    ```
+    public interface MyMarkerInterface {
+       // No methods are declared
+    }
+    ```
+    Classes implementing this interface can be identified by checking with instanceof to see if the marker interface is implemented.
+
+19. What is the difference between `==` and `equals()` when dealing with wrapper classes and primitive types in Java?
+   
+    For primitive types, you use == to compare values.  
+    For wrapper classes, using `==` compares references, not values. To compare values, you should use the `equals()` method, which is overridden in wrapper classes to compare the content.
     
-18. What is **blank final variable**?
+20. What is **blank final variable**?
     
     A final variable, not initalized at the time of declaration, is known as blank final variable.
 
-19. Can we intialize blank final variable?
+21. Can we intialize blank final variable?
    
     Yes, only in constructor if it is non-static. If it is static blank final variable, it can be initialized only in the static block
 
-20. Why can't **this() and super() both be used together in a constructor**?
+22. Why can't **this() and super() both be used together in a constructor**?
    
     Constructor must always be the first statement.
     
@@ -323,7 +337,7 @@ For example: public static int cube(int n){ return n*n*n;}	For example: public v
    
     Thus if both were allowed you could end up calling the super constructor twice.
 
-21. **Checked vs Unchecked Exceptions** in Java
+23. **Checked vs Unchecked Exceptions** in Java
    
     Exception is an unwanted or unexpected event, which occurs during the execution of a program, i.e. at run time, that disrupts the normal flow of the program’s instructions. 
 
@@ -338,4 +352,24 @@ For example: public static int cube(int n){ return n*n*n;}	For example: public v
 
    Unchecked exceptions include all subclasses of the RuntimeException class, as well as the Error class and its subclasses.  
    Ex. ArrayIndexOutOfBoundsException, NullPointerException, ArithmeticException
+   ![Alt text](images/Image1.png) 
+
+24. **Exception Handling with Method Overriding**
    
+    Problem 1:  If The SuperClass doesn’t declare an exception
+       - Case 1: If SuperClass doesn’t declare any exception and subclass declare checked exception - Not allowed
+       - Case 2: If SuperClass doesn’t declare any exception and SubClass declare Unchecked exception - Allowed
+         
+    Problem 2: If The SuperClass declares an exception
+    - Case 1: If SuperClass declares an exception and SubClass declares exceptions other than the child exception of the SuperClass declared Exception. - Not allowed
+    - Case 2: If SuperClass declares an exception and SubClass declares a child exception of the SuperClass declared Exception. - Allowed
+    - Case 3: If SuperClass declares an exception and SubClass declares without exception. - Allowed  
+
+- If SuperClass does not declare an exception, then the SubClass can only declare unchecked exceptions, but not the checked exceptions.
+- If SuperClass declares an exception, then the SubClass can only declare the same or child exceptions of the exception declared by the SuperClass and any new Runtime Exceptions, just not any new checked exceptions at the same level or higher.
+- If SuperClass declares an exception, then the SubClass can declare without exception.
+
+25. Can we **override a method which throws runtime exception** without throws clause?
+
+    Yes, there is no restriction on unchecked exception while overriding. On the other hand, in the case of checked exception, an overriding exception cannot throw a checked exception which comes higher in type hierarchy e.g. if original method is throwing IOException than overriding method cannot throw java.lang.Exception or java.lang.Throwable.
+ 
