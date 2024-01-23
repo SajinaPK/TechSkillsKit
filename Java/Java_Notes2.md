@@ -318,7 +318,24 @@ For example: public static int cube(int n){ return n*n*n;}	For example: public v
    
     Constructor must always be the first statement.
     
-   So we can not have two statements as first statement, hence either we can call `super()` or we can call `this()` from the constructor, but not both.
+    So we can not have two statements as first statement, hence either we can call `super()` or we can call `this()` from the constructor, but not both.
    `this(...)` will call another constructor in the same class whereas `super()` will call a super constructor. If there is no `super()` in a constructor the compiler will add one implicitly. 
    
-   Thus if both were allowed you could end up calling the super constructor twice.
+    Thus if both were allowed you could end up calling the super constructor twice.
+
+21. **Checked vs Unchecked Exceptions** in Java
+   
+    Exception is an unwanted or unexpected event, which occurs during the execution of a program, i.e. at run time, that disrupts the normal flow of the program’s instructions. 
+
+    In Java, there are two types of exceptions:
+- **Checked exceptions** - Exceptions that are checked at compile time. If some code within a method throws a checked exception, then the method must either handle the exception or it must specify the exception using the throws keyword.
+
+   A fully checked exception is a checked exception where all its child classes are also checked, like IOException, and InterruptedException. A partially checked exception is a checked exception where some of its child classes are unchecked, like an Exception.
+
+- **Unchecked exceptions** - Exceptions that are not checked at compile time. In C++, all exceptions are unchecked, so it is not forced by the compiler’s to either handle or specify the exception.
+
+   Unchecked exceptions are runtime exceptions that are not required to be caught or declared in a throws clause. 
+
+   Unchecked exceptions include all subclasses of the RuntimeException class, as well as the Error class and its subclasses.  
+   Ex. ArrayIndexOutOfBoundsException, NullPointerException, ArithmeticException
+   
