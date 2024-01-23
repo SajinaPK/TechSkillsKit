@@ -178,6 +178,8 @@
      ```    
       **Note**: There should be no setters or in simpler terms, there should be no option to change the value of the instance variable.
 
+     Well, Immutability offers several advantages including **thread-safety, ability to cache and result in more readable multithreading code.**
+
 14. What are wrapper classes in Java?
     
     The wrapper class in Java provides the mechanism to convert primitive into object and object into primitive.      
@@ -196,4 +198,135 @@
 16. Can you **override static method** in Java?
    
     No, you cannot override static method in Java because they are resolved at compile time rather than runtime. Though you can declare and define static method of same name and signature in child class, this will hide the static method from parent class, that's why it is also known as **method hiding** in Java.
+
+    Static methods are resolved statically (i.e. at compile time) based on the class they are called on and not dynamically as in the case with instance methods which are resolved **polymorphically** based on the runtime type of the object.
+
+17. Difference Between **Method Overriding and Method Hiding**
+
+    If a subclass defines a static method with the same signature as a static method in the superclass, then the method in the subclass hides the one in the superclass. This mechanism happens because the static method is resolved at the **compile time**. Static method bind during the compile time using the **type of reference not a type of object**.
+
+      **Difference Between Method Overriding and Method Hiding in Java**
+   - In method overriding both the method in parent class and child class are non-static.
+   - In method Hiding both the method in parent class and child class are static.
+   - In method Overriding method resolution is done on the basis of the Object type.
+   - In method Hiding method resolution is done on the basis of reference type.
+   - The version of the overridden instance method that gets invoked is the one in the subclass.
+   - The version of the hidden static method that gets invoked depends on whether it is invoked from the superclass or the subclass. 
+   - In method overriding, we have the ability to use the “super” keyword to explicitly access superclass methods (super keyword is non-static reference variable we cant use it in static method as we know static methods can only access static members of the class ). Therefore, method overriding does not involve method hiding since the “super” keyword allows us to access and invoke superclass methods when needed.
+
+      **Method hiding** means subclass has defined a **class method** with the same signature as a class method in the superclass. In that case the method of superclass is hidden by the subclass. It signifies that : **The version of a method that is executed will NOT be determined by the object that is used to invoke it**. In fact it will be determined by the *type of reference variable used to invoke the method*.
+
+      ```
+      public class Animal {
+         public static void foo() {
+              System.out.println("Animal");
+          }
+      }
+
+      public class Cat extends Animal {
+         public static void foo() {  // hides Animal.foo()
+              System.out.println("Cat");
+          }
+      }
+
+      Animal.foo(); // prints Animal
+      Cat.foo(); // prints Cat
+
+      Animal a = new Animal();
+      Animal b = new Cat();
+      Cat c = new Cat();
+      Animal d = null;
+
+      a.foo(); // should not be done. Prints Animal because the declared type of a is Animal
+      b.foo(); // should not be done. Prints Animal because the declared type of b is Animal
+      c.foo(); // should not be done. Prints Cat because the declared type of c is Cat
+      d.foo(); // should not be done. Prints Animal because the declared type of d is Animal
+      ```
+      **Method overriding** means subclass had defined an **instance method** with the same signature and return type( including covariant type) as the instance method in superclass. In that case method of superclass is overridden(replaced) by the subclass. It signifies that: **The version of method that is executed will be determined by the object that is used to invoke it**. *It will not be determined by the type of reference variable used to invoke the method.*
+      ```
+      public class Animal {
+          public void foo() {
+              System.out.println("Animal");
+          }
+      }
+
+      public class Cat extends Animal {
+          public void foo() { // overrides Animal.foo()
+              System.out.println("Cat");
+          }
+      }
+
+      Animal a = new Animal();
+      Animal b = new Cat();
+      Cat c = new Cat();
+      Animal d = null;
+
+      a.foo(); // prints Animal
+      b.foo(); // prints Cat
+      c.foo(); // prints Cat
+      d.foo(): // throws NullPointerException
+      ```
+18. What is **covariant method overriding** in Java?
+
+    When we override a parent class method, the name, argument types, and return type of the overriding method in child class has to be exactly the same as that of the parent class method. The overriding method was said to be **invariant** with respect to return type. 
+
+      Java version 5.0 onwards it is possible to have different return types for an overriding method in the child class, but the child’s return type should be a subtype of the parent’s return type. The overriding method becomes **variant** with respect to return type.
+
+      The co-variant return type is based on the **Liskov substitution principle.**
+
+      In covariant method overriding, the overriding method can return the subclass of the object returned by original or overridden method. This concept was introduced in Java 1.5 (Tiger) version and it's very helpful in case original method is returning general type like Object class, because, then by using covariant method overriding you can return more suitable object and **prevent client side type casting**. One of the practical use of this concept is in when you **override the clone() method** in Java.
+
+19. Diamond Problem
+   
+    The **diamond problem** is an ambiguity that can arise as a consequence of allowing multiple inheritance. It is a serious problem for languages (like C++) that allow for multiple inheritance of state. In Java, however, multiple inheritance is not allowed for classes, only for interfaces, and these do not contain state.
+
+    Talking about Multiple inheritance is when a child class is inherits the properties from more than one parents and the methods for the parents are same (Method name and parameters are exactly the same) then child gets confused about which method will be called. This problem in Java is called the Diamond problem.
+
+20. What is the difference between **Object Oriented Programming and Object Based Programming**?
+
+- Object oriented programming supports all the usual OOP features such as inheritance and polymorphism. It also has no built in objects. ex C#, Java, VB. Net
+- Object based programming does not support inheritance or polymorphism and does have some built in objects. ex. Javascript, VB
+
+21. How do you **prevent a method from being overridden**?
+   
+    To prevent a specific method from being overridden in a subclass, use the **final** modifier on the method declaration, which means "this is the final implementation of this method", the end of its inheritance hierarchy.
+
+22. Can a class be declared as **protected**?
+   
+    The protected access modifier cannot be applied to class and interfaces. Methods, fields can be declared protected, however methods and fields in a interface cannot be declared protected.
+
+23. Does Java have **friend** concept?
+   
+    Using friend function you can access private members of class. It can be used in C++ not in java. ... In object-oriented programming, a friend function, that is a "friend" of a given class, is a function that is given the same access as methods to private and protected data. Can be achieved in Java by other means, possibly with reflection.
+
+      Package-private (aka. default) is sufficient in most cases where you have a group of heavily intertwined classes. You put your "friends" in the same package.
+
+24. What is **strictfp**?
+   
+    strictfp is a keyword in java used for restricting floating-point calculations and ensuring same result on every platform while performing operations in the floating-point variable.
+Floating point calculations are platform dependent i.e. different output(floating-point values) is achieved when a class file is run on different platforms(16/32/64 bit processors). To solve this types of issue, strictfp keyword was introduced in JDK 1.2 version by following IEEE 754 standards for floating-point calculations.
+
+25. How **JNI** works in Java?
+
+    Java provides the **native** keyword that’s used to indicate that the method implementation will be provided by a native code.  
+      Normally, when making a native executable program, we can choose to use static or shared libs:
+
+- Static libs – all library binaries will be included as part of our executable during the linking process. Thus, we won’t need the libs anymore, but it’ll increase the size of our executable file.
+- Shared libs – the final executable only has references to the libs, not the code itself. It requires that the environment in which we run our executable has access to all the files of the libs used by our program.  
+The latter is what makes sense for JNI as we can’t mix bytecode and natively compiled code into the same binary file.  
+
+   **The native keyword transforms our method into a sort of abstract method:**  
+   `private native void aNativeMethod();`  
+
+   With the main difference that **instead of being implemented by another Java class, it will be implemented in a separated native shared library.**
+
+   Java elements:  
+  - **“native”** keyword – as we’ve already covered, any method marked as native must be implemented in a native, shared lib.
+  - **System.loadLibrary(String libname)** – a static method that loads a shared library from the file system into memory and makes its exported functions available for our Java code.  
+
+   C/C++ elements (many of them defined within jni.h)  
+   - JNIEXPORT- marks the function into the shared lib as exportable so it will be included in the function table, and thus JNI can find it
+   - JNICALL – combined with JNIEXPORT, it ensures that our methods are available for the JNI framework
+   - JNIEnv – a structure containing methods that we can use our native code to access Java elements
+   - JavaVM – a structure that lets us manipulate a running JVM (or even start a new one) adding threads to it, destroying it, etc…
 
