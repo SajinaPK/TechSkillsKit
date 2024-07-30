@@ -20,7 +20,7 @@
    
      Applications that require real-time updates, such as collaborative tools and live data feeds, can leverage GraphQL subscriptions.
 
-3. **RESTful Architecture**
+2. **RESTful Architecture**
    RESTful architecture is a way to design networked applications. It stands for Representational State Transfer (REST). RESTful web services use HTTP requests to perform CRUD (Create, Read, Update, Delete) operations on resources, which are identified by URLs.
    
    Key Components are:
@@ -40,3 +40,39 @@
      Services that require stateless interactions like weather APIs, news APIs, microservices, search engines, social media feeds, CDN, geolocation services.
    
      Public APIs that need to support a wide range of clients.
+
+3. **SOAP Architecture**
+   SOAP (Simple Object Access Protocol) architecture is a protocol for exchanging structured information in the implementation of web services in computer networks. It relies on XML for its message format and typically uses other application layer protocols, most notably HTTP and SMTP, for message negotiation and transmission.
+
+   Key Components are:
+      SOAP envelope: is the root element in a SOAP message. It defines the start and the end of the message, ensuring that it is well-formed XML. It contains a header and a body.
+   
+      SOAP encoding rules: Defines a serialization mechanism that can be used to encode the data being sent in the SOAP message.
+   
+      SOAP RPC: Defines a convention that can be used to represent remote procedure calls and responses.
+   
+      SOAP binding: Defines how the SOAP message is transported using underlying protocols, most commonly HTTP or SMTP. The binding specifies how to use these protocols to transfer the SOAP message.
+   
+   Use cases:
+   
+      SOAP is often used in scenarios where security, reliability, and transactional integrity are crucial, such as in
+     - Enterprise-level applications
+     - Financial services
+     - Payment gateways
+     - Telecommunications
+  
+5. **gPRC Architecture**
+
+   Key Components are:
+   Use cases:
+
+6. **WebSocket Architecture**
+      
+   Key Components are:
+   Use cases:
+
+7. **Webhook Architecture**
+
+   Key Components are:
+   Use cases:
+      
