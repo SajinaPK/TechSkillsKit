@@ -505,3 +505,35 @@ When running integration tests for a Spring application, we must have an `Applic
 To make our life easier, Spring Boot provides a special annotation for testing — `@SpringBootTest`. This annotation creates an `ApplicationContext` from configuration classes indicated by its classes attribute.
 
 **In case the classes attribute isn’t set, Spring Boot searches for the primary configuration class**. The search starts from the package containing the test until it finds a class annotated with `@SpringBootApplication` or `@SpringBootConfiguration`.
+
+21. **Explain the use of EXPLAIN PLAN**
+<select id="getMurexIRSRisksData" parameterType="Map" resultMap="Murex_IRSRiskResultMap">
+    <if test="explainOnly != null">
+  		EXPLAIN PLAN FOR
+    </if>
+	SELECT employee_id, first_name, last_name
+    FROM employees
+    WHERE department_id = #{departmentId}
+</select>
+
+You can use the EXPLAIN PLAN FOR statement to analyze the execution plan of a SQL query. However, it’s important to note that the EXPLAIN PLAN syntax is specific to Oracle Database, and it won’t work with other databases like MySQL or PostgreSQL.
+MyBatis will generate the execution plan for the specified query. You can then review the plan to understand how the database optimizer intends to execute the query. Look for details like index usage, join methods, and access paths.
+
+22. **Explain advantage of using iBatis/MyBatis in Spring**
+
+- Easy to integrate with spring, so spring is handling database resource pools,s and transaction, and iBatis just handle operations.
+- iBatis maps POJO and Hashmaps, with the same syntax in its XML SQL mapping files, making refactoring very easy when we move from arbitary queries to more complex queries into objects.
+- iBatis mapping is to from Objects to SQL statements, not Object to Relationship Database.  And that's the only place mapping occurs.  Which means the JAVA POJOs remain simple pojos that can be passed everywhere.  Insert, Update, Delete, and Select can have different mappings.
+- The "Dynamic SQL" option means we can take a select criteria and use it to construct different SQL where clauses during runtime, which fit our search model very well.
+- The SQL mappers are basically statements, which can be extracted to run in SQL query window for debugging easily, and reversely design the SQL statement first, and convert it to iBatis SQL Mapper.
+
+Choose iBatis/myBatis
+
+- Have full control over table structure and SQL query
+- Let spring handle all transactions and resource pooling
+- Map Objects to SQL, rather thane Tables
+- Dynamic SQL to construct where clauses during runtime for criteria searching
+- Singlar location of mappings
+- Call API is easily implemented, single handling of exception for the call,
+- No wasted code on exception handling, commit, rollback, constructing of objects through result set, ejecting object from session, hybird "HQL" queries that mimic SQL, etc.
+- Total modulization of DB operations as services through spring template, so entire DB operation can be easily swapped out for Hibernate or something else int he future.
